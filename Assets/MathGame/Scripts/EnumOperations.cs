@@ -1,0 +1,5 @@
+enum EnumOperation
+{
+    Pluss,
+    Minus
+}
