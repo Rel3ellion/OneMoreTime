@@ -7,7 +7,7 @@ public class FirefightingSystem : MonoBehaviour
     [SerializeField] private ParticleSystem _fire;
     [SerializeField] private ParticleSystem _antifire;
     private bool isCor = false;
-    private bool isFireComplited = false;
+    public bool IsFireDone { get; private set; } = false;
 
     private void Update()
     {
@@ -17,7 +17,7 @@ public class FirefightingSystem : MonoBehaviour
             isCor = false;
         }
 
-        if (isFireComplited)
+        if (IsFireDone)
         {
             StartCoroutine(StopAll(2f));
         }
@@ -33,7 +33,7 @@ public class FirefightingSystem : MonoBehaviour
         {
             isCor = false;
             _antifire.startLifetime = 0.0001f;
-            isFireComplited = true;
+            IsFireDone = true;
         }
     }
 
