@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1420260487211699815}
   - component: {fileID: 3945106736517426995}
   m_Layer: 6
-  m_Name: Sphere (2)
+  m_Name: LensB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,8 +104,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.110203385
-  m_Center: {x: 0, y: 0, z: -0.032420516}
+  m_Radius: 0.18
+  m_Center: {x: 0.46, y: 0, z: 0}
 --- !u!114 &3945106736517426995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 1876004197231910587}
   distanceRay: 5.25
+  color: {r: 0.12941177, g: 0.227451, b: 0.32941177, a: 1}
   isRay: 0
 --- !u!1 &4643531490882835343
 GameObject:
@@ -130,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3785707056039538656}
+  - component: {fileID: 8985126065326333698}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Untagged
@@ -155,6 +157,19 @@ Transform:
   - {fileID: 2470045213419810549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8985126065326333698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4643531490882835343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50b4bb2e47587243bc652ae4cd8d50e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toAngle: 15
 --- !u!1 &5486160557554259552
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,8 +181,10 @@ GameObject:
   - component: {fileID: 1876004197231910587}
   - component: {fileID: 7480775314819687375}
   - component: {fileID: 5277199800647822680}
+  - component: {fileID: 7100084064071434336}
+  - component: {fileID: 8608184391254174663}
   m_Layer: 6
-  m_Name: Sphere
+  m_Name: LensA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,6 +255,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &7100084064071434336
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486160557554259552}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.18
+  m_Center: {x: 0.46, y: 0, z: 0}
+--- !u!114 &8608184391254174663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486160557554259552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa614e1fb821004faaf0193becbcb5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: {fileID: 2470045213419810549}
+  distanceRay: 5.25
+  color: {r: 0.12941177, g: 0.227451, b: 0.32941177, a: 1}
+  isRay: 0
 --- !u!1 &6743127715282933023
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +305,7 @@ GameObject:
   - component: {fileID: 1105933208098194196}
   - component: {fileID: 2040304537245340570}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Carcass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

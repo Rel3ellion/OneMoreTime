@@ -6,6 +6,7 @@ public class RaycastMirror : MonoBehaviour
 {
     [SerializeField] private Transform point;
     [SerializeField] private float distanceRay = 40f;
+    [SerializeField] private Color color;
 
     [Header("debug")]
     public bool isRay = false;
@@ -21,7 +22,7 @@ public class RaycastMirror : MonoBehaviour
     {
         if (isRay)
         {
-            var ray = new Ray(point.position, point.right);
+            var ray = new Ray(point.position, point.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
@@ -56,8 +57,8 @@ public class RaycastMirror : MonoBehaviour
     {
         if (isRay)
         {
-            var ray = new Ray(point.position, point.right);
-            Debug.DrawRay(point.position, point.right * distanceRay, Color.red);
+            var ray = new Ray(point.position, point.forward);
+            Debug.DrawRay(point.position, point.right * distanceRay, color);
         }
     }
 #endif
