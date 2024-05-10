@@ -8,19 +8,28 @@ public class CastomServerButton : CastomButton
     [SerializeField, Range (0,9)] private int _answer;
     [SerializeField] private float _buttonDelay;
 
-    private bool isPressed = false;
     private Coroutine _coroutine = null;
+    private bool _isEnable = false;
 
-    private void FixedUpdate()
+    public void Activate()
     {
-        if (_coroutine == null)
-        {
-            return;
-        }
+        _isEnable = true;
+        _shaderController.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        _isEnable = false;
+        _shaderController.SetActive(false);
     }
 
     public override void Press()
     {
+        if (_isEnable == false)
+        {
+            return;
+        }
+
         if (_coroutine != null)
         {
             return;
@@ -46,7 +55,6 @@ public class CastomServerButton : CastomButton
 
     private IEnumerator ButtonDelayWait()
     {
-        isPressed = true;
         var wait = new WaitForSeconds(_buttonDelay);
 
         yield return wait;

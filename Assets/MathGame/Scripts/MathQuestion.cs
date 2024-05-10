@@ -9,7 +9,7 @@ public class MathQuestion : MonoBehaviour
     [SerializeField] private UnityEvent _rightAnswer;
     [SerializeField] private UnityEvent _wrongAnswer;
 
-    public event Action QuestionsCreated;
+    public event Action QuestionsChanged;
     public event Action QuestionComplited;
 
     private List<Question> _questions = new List<Question>();
@@ -23,10 +23,10 @@ public class MathQuestion : MonoBehaviour
 
     public int QuestionsCount => _questions.Count;
 
-    private void Start()
-    {
-        CreateQuestions();
-    }
+    //private void Start()
+    //{
+    //    CreateQuestions();
+    //}
 
     public void CheckAnsver(int answer, out bool isRight)
     {
@@ -109,6 +109,14 @@ public class MathQuestion : MonoBehaviour
         return questions;
     }
 
+    public void ClearQuestions()
+    {
+        CurrentQuestion = 0;
+
+        _questions.Clear();
+        QuestionsChanged.Invoke();
+    }
+
     public void CreateQuestions()
     {
         EnumOperation operation;
@@ -136,7 +144,7 @@ public class MathQuestion : MonoBehaviour
             _questions.Add(new Question(firstNumber, secondNumber, operation));
         }
 
-        QuestionsCreated.Invoke();
+        QuestionsChanged.Invoke();
     }
 
     private struct Question

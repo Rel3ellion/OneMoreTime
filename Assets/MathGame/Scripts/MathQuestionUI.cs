@@ -11,13 +11,13 @@ public class MathQuestionUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _mathQuestion.QuestionsCreated += CreateQuestionsUI;
+        _mathQuestion.QuestionsChanged += CreateQuestionsUI;
         _mathQuestion.QuestionComplited += UpdateUI;
     }
 
     private void OnDisable()
     {
-        _mathQuestion.QuestionsCreated -= CreateQuestionsUI;
+        _mathQuestion.QuestionsChanged -= CreateQuestionsUI;
         _mathQuestion.QuestionComplited -= UpdateUI;
     }
 
