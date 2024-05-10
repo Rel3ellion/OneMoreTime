@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PanelPuzzle : MonoBehaviour
@@ -5,7 +6,10 @@ public class PanelPuzzle : MonoBehaviour
     [SerializeField] private Panel[] _panels = new Panel[9];
     [SerializeField] private ResetButtn _resetButtn;
 
+    public event Action QuestCompleted;
+
     private Panel[,] _currentPanels;
+    public bool CanActivated = false;
 
     public bool IsDone { get; private set; } = false;
 
@@ -50,6 +54,8 @@ public class PanelPuzzle : MonoBehaviour
 
     public void Activate()
     {
+        if (CanActivated == false) return;
+
         foreach (var panel in _panels)
         {
             panel.Activate();
@@ -115,6 +121,7 @@ public class PanelPuzzle : MonoBehaviour
         {
             IsDone = true;
             Debug.Log($"Panel quest is complited = {IsDone}");
+            QuestCompleted?.Invoke();
             LockPanels();
         }
     }

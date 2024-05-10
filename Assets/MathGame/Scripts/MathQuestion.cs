@@ -11,6 +11,7 @@ public class MathQuestion : MonoBehaviour
 
     public event Action QuestionsChanged;
     public event Action QuestionComplited;
+    public event Action QuestComplited;
 
     private List<Question> _questions = new List<Question>();
 
@@ -32,7 +33,7 @@ public class MathQuestion : MonoBehaviour
         {
             isRight = true;
             CurrentQuestion++;
-            QuestionComplited.Invoke();
+            QuestionComplited?.Invoke();
             _rightAnswer?.Invoke();
             Debug.Log("Current question " + CurrentQuestion);
 
@@ -68,6 +69,7 @@ public class MathQuestion : MonoBehaviour
             {
                 IsDone = true;
                 Debug.Log("QuestIs done = " + IsDone);
+                QuestComplited?.Invoke();
             }
 
             return;

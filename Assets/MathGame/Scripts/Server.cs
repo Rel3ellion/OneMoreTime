@@ -5,8 +5,12 @@ public class Server : MonoBehaviour
     [SerializeField] private CastomServerButton[] _serverButtons;
     [SerializeField] private MathQuestion _mathQuest;
 
+    public bool CanActivated = false;
+
     public void Activate()
     {
+        if (CanActivated == false) return;
+
         _mathQuest.CreateQuestions();
 
         foreach (var button in _serverButtons)
