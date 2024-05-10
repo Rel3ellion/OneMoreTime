@@ -23,11 +23,6 @@ public class MathQuestion : MonoBehaviour
 
     public int QuestionsCount => _questions.Count;
 
-    //private void Start()
-    //{
-    //    CreateQuestions();
-    //}
-
     public void CheckAnsver(int answer, out bool isRight)
     {
         isRight = false;
