@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Button : MonoBehaviour
+public class CastomButton : MonoBehaviour
 {
     [SerializeField] private UnityEvent _pressed;
     [SerializeField] private UnityEvent _released;
