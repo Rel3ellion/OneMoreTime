@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class MathQuestion : MonoBehaviour
 {
+    [SerializeField] private UnityEvent _rightAnswer;
+    [SerializeField] private UnityEvent _wrongAnswer;
+
     public event Action QuestionsCreated;
     public event Action QuestionComplited;
 
@@ -24,6 +28,36 @@ public class MathQuestion : MonoBehaviour
         CreateQuestions();
     }
 
+    public void CheckAnsver(int answer, out bool isRight)
+    {
+        isRight = false;
+        if (IsDone) return;
+
+        if (answer == _questions[CurrentQuestion].Answer)
+        {
+            isRight = true;
+            CurrentQuestion++;
+            QuestionComplited.Invoke();
+            _rightAnswer?.Invoke();
+            Debug.Log("Current question " + CurrentQuestion);
+
+            if (CurrentQuestion == _questions.Count)
+            {
+                IsDone = true;
+                Debug.Log("QuestIs done = " + IsDone);
+            }
+
+            return;
+        }
+        else
+        {
+            _wrongAnswer?.Invoke();
+            CreateQuestions();
+
+            return;
+        }
+    }
+
     public void CheckAnsver(int answer)
     {
         if (IsDone) return;
@@ -32,6 +66,7 @@ public class MathQuestion : MonoBehaviour
         {
             CurrentQuestion++;
             QuestionComplited.Invoke();
+            _rightAnswer?.Invoke();
             Debug.Log("Current question " + CurrentQuestion);
             
             if (CurrentQuestion == _questions.Count)
@@ -44,6 +79,9 @@ public class MathQuestion : MonoBehaviour
         }
         else
         {
+            _wrongAnswer?.Invoke();
+            CreateQuestions();
+
             return;
         }
     }
@@ -71,11 +109,13 @@ public class MathQuestion : MonoBehaviour
         return questions;
     }
 
-    private void CreateQuestions()
+    public void CreateQuestions()
     {
         EnumOperation operation;
         int firstNumber;
         int secondNumber;
+
+        CurrentQuestion = 0;
 
         _questions.Clear();
 
