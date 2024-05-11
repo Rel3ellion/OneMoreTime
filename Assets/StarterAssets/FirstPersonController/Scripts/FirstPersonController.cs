@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FMODUnity;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -73,6 +74,11 @@ namespace StarterAssets
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
+
+		private bool soundIsPlaying = false;
+		[SerializeField] private EventReference footsteps;
+		private float lastFootstepTime = 0;
+		public Transform positionSound;
 
 		private bool IsCurrentDeviceMouse
 		{
@@ -196,6 +202,23 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+			if (Grounded && currentHorizontalSpeed > 0.1f)
+            {
+				if (!soundIsPlaying)
+				{
+					RuntimeManager.PlayOneShot(footsteps, positionSound.position);
+					lastFootstepTime = Time.time;
+					soundIsPlaying = true;
+				}
+				else
+				{
+					if (Time.time - lastFootstepTime > 2 / currentHorizontalSpeed)
+					{
+						soundIsPlaying = false;
+					}
+				}
+			}
 		}
 
 		private void JumpAndGravity()
