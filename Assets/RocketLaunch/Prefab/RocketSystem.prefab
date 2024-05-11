@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 2688537441681418036}
   - component: {fileID: 4801982600887327054}
   - component: {fileID: 2178819506185357240}
+  - component: {fileID: 4975696465253026880}
   m_Layer: 0
   m_Name: Raketa
   m_TagString: Untagged
@@ -238,6 +239,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4975696465253026880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823795626037760411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e34846c1e7c1f346bf3f25c537e9b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 4801982600887327054}
 --- !u!1 &7283771067314742900
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2231412305018021032}
+  - component: {fileID: 8040138487383443136}
   m_Layer: 0
   m_Name: RocketSystem
   m_TagString: Untagged
@@ -521,3 +536,17 @@ Transform:
   - {fileID: 3427554819869769663}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8040138487383443136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633360760565112877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5577335a5f51d4e9e61dff718435ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 4975696465253026880}
+  _launchDelay: 0
