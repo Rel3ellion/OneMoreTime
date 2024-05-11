@@ -9,7 +9,6 @@ public class Laser : MonoBehaviour
     [SerializeField] private Transform point;
     [SerializeField] private float distanceRay;
     [SerializeField] private Color color;
-    [SerializeField] private LayerMask layerMask;
     
     private Timer timer;
 
@@ -17,13 +16,14 @@ public class Laser : MonoBehaviour
     {
         var ray = new Ray(point.position, point.right);
 
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, distanceRay, layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, distanceRay))
         {
             var hitCollider = hitInfo.collider;
 
             if (hitCollider.TryGetComponent(out RaycastMirror miror))
             {
                 miror.isRay = true;
+                
             }
         }
     }

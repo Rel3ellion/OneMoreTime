@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class RaycastMirror : MonoBehaviour
 {
-    [SerializeField] private Transform point;
+    [SerializeField] private GameObject point;
     [SerializeField] private float distanceRay = 40f;
     [SerializeField] private Color color;
 
     [Header("debug")]
     public bool isRay = false;
     private bool isCor = true;
-
+    [SerializeField] private LineRenderer line;
 
     private void Update()
     {
@@ -22,16 +22,26 @@ public class RaycastMirror : MonoBehaviour
     {
         if (isRay)
         {
-            var ray = new Ray(point.position, point.forward);
+            var ray = new Ray(point.transform.position, point.transform.right);
+            line.enabled = true;
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 var hitCollider = hitInfo.collider;
 
+                if (hitCollider.TryGetComponent(out FinishMirror mir))
+                {
+                    mir.isLaser1 = true;
+                }
+
                 if (hitCollider.TryGetComponent(out RaycastMirror miror))
                 {
                     miror.isRay = true;
+                    Debug.Log("isRay true");
                 }
+                
+                
+
             }
 
             if(isCor)
@@ -40,6 +50,10 @@ public class RaycastMirror : MonoBehaviour
                 isCor = false;
             }
             
+        }
+        else
+        {
+            line.enabled = false;
         }
     }
 
@@ -57,8 +71,8 @@ public class RaycastMirror : MonoBehaviour
     {
         if (isRay)
         {
-            var ray = new Ray(point.position, point.forward);
-            Debug.DrawRay(point.position, point.right * distanceRay, color);
+            var ray = new Ray(point.transform.position, point.transform.right);
+            Debug.DrawRay(point.transform.position, point.transform.right * distanceRay, color);
         }
     }
 #endif

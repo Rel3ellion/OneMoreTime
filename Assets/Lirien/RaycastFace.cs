@@ -18,7 +18,7 @@ public class RaycastFace : MonoBehaviour
     private void FixedUpdate()
     {
         ray = _camera.ScreenPointToRay(Ray_start_position);
-        Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
+        
     }
 
     private void Update()
@@ -64,5 +64,11 @@ public class RaycastFace : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(ray.origin, ray.direction);
     }
 }
