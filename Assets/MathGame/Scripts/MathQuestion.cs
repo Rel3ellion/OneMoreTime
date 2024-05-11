@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class MathQuestion : MonoBehaviour
 {
-    public event Action QuestionsCreated;
+    [SerializeField] private UnityEvent _rightAnswer;
+    [SerializeField] private UnityEvent _wrongAnswer;
+
+    public event Action QuestionsChanged;
     public event Action QuestionComplited;
+    public event Action QuestComplited;
 
     private List<Question> _questions = new List<Question>();
 
@@ -19,21 +24,19 @@ public class MathQuestion : MonoBehaviour
 
     public int QuestionsCount => _questions.Count;
 
-    private void Start()
+    public void CheckAnsver(int answer, out bool isRight)
     {
-        CreateQuestions();
-    }
-
-    public void CheckAnsver(int answer)
-    {
+        isRight = false;
         if (IsDone) return;
 
         if (answer == _questions[CurrentQuestion].Answer)
         {
+            isRight = true;
             CurrentQuestion++;
-            QuestionComplited.Invoke();
+            QuestionComplited?.Invoke();
+            _rightAnswer?.Invoke();
             Debug.Log("Current question " + CurrentQuestion);
-            
+
             if (CurrentQuestion == _questions.Count)
             {
                 IsDone = true;
@@ -44,6 +47,38 @@ public class MathQuestion : MonoBehaviour
         }
         else
         {
+            _wrongAnswer?.Invoke();
+            CreateQuestions();
+
+            return;
+        }
+    }
+
+    public void CheckAnsver(int answer)
+    {
+        if (IsDone) return;
+
+        if (answer == _questions[CurrentQuestion].Answer)
+        {
+            CurrentQuestion++;
+            QuestionComplited.Invoke();
+            _rightAnswer?.Invoke();
+            Debug.Log("Current question " + CurrentQuestion);
+            
+            if (CurrentQuestion == _questions.Count)
+            {
+                IsDone = true;
+                Debug.Log("QuestIs done = " + IsDone);
+                QuestComplited?.Invoke();
+            }
+
+            return;
+        }
+        else
+        {
+            _wrongAnswer?.Invoke();
+            CreateQuestions();
+
             return;
         }
     }
@@ -71,11 +106,21 @@ public class MathQuestion : MonoBehaviour
         return questions;
     }
 
-    private void CreateQuestions()
+    public void ClearQuestions()
+    {
+        CurrentQuestion = 0;
+
+        _questions.Clear();
+        QuestionsChanged.Invoke();
+    }
+
+    public void CreateQuestions()
     {
         EnumOperation operation;
         int firstNumber;
         int secondNumber;
+
+        CurrentQuestion = 0;
 
         _questions.Clear();
 
@@ -96,7 +141,7 @@ public class MathQuestion : MonoBehaviour
             _questions.Add(new Question(firstNumber, secondNumber, operation));
         }
 
-        QuestionsCreated.Invoke();
+        QuestionsChanged.Invoke();
     }
 
     private struct Question

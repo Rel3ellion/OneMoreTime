@@ -11,13 +11,13 @@ public class MathQuestionUI : MonoBehaviour
 
     private void OnEnable()
     {
-        _mathQuestion.QuestionsCreated += CreateQuestionsUI;
+        _mathQuestion.QuestionsChanged += CreateQuestionsUI;
         _mathQuestion.QuestionComplited += UpdateUI;
     }
 
     private void OnDisable()
     {
-        _mathQuestion.QuestionsCreated -= CreateQuestionsUI;
+        _mathQuestion.QuestionsChanged -= CreateQuestionsUI;
         _mathQuestion.QuestionComplited -= UpdateUI;
     }
 
@@ -33,6 +33,13 @@ public class MathQuestionUI : MonoBehaviour
 
     private void CreateQuestionsUI()
     {
+        foreach (var text in _textList)
+        {
+            Destroy(text.gameObject);
+        }
+
+        _textList.Clear();
+
         List<string> textList = _mathQuestion.GetQuestions();
 
         for (int i = 0; i < _mathQuestion.QuestionsCount; i++)
