@@ -7,7 +7,7 @@ public class FinishMirror : MonoBehaviour
 {
     public bool isLaser1 = false;
 
-    public bool IsLaserDone = false;
+    public bool IsDone = false;
 
     private float _randAngle1;
     private float _randAngle2;
@@ -27,11 +27,11 @@ public class FinishMirror : MonoBehaviour
         if(isLaser1)
         {
             Debug.Log("IsLaser1Done");
-            IsLaserDone = true;
+            IsDone = true;
         }
             
 
-        if (IsLaserDone)
+        if (IsDone)
         {
             Activate();
             enabled = false;
